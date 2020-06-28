@@ -52,7 +52,9 @@ adminSchema.statics.findByCredentials = async function (email, password) {
 // Methods
 adminSchema.methods.generateAuthToken = async function () {
 
-    const token = jwt.sign({id: this.id.toString}, process.env.JWT_SECRET)
+    const token = jwt.sign({id: this.id.toString}, process.env.JWT_SECRET, {
+        expiresIn: "2 days"
+    })
 
     this.tokens.push({token: token})
     await this.save()
