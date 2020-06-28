@@ -5,7 +5,8 @@ const bodyParser = require('body-parser')
 require('./db/mongooseConfig')
 
 const adminRouter = require('./router/adminRouter')
-
+const photoRouter = require('./router/photoRouter')
+const categoryRouter = require('./router/categoryRouter')
 
 const app = express()
 
@@ -13,6 +14,8 @@ const port = process.env.PORT
 
 app.use(bodyParser.json())
 app.use(adminRouter)
+app.use(photoRouter)
+app.use(categoryRouter)
 
 app.listen(port, (error) => {
     if (error) {
