@@ -39,8 +39,7 @@ adminSchema.statics.findByCredentials = async function (email, password) {
     if (!admin) {
         throw new Error("No user found.")
     }
-
-    const passwordMatch = bcrypt.compare(password, admin.password)
+    const passwordMatch = await bcrypt.compare(password, admin.password)
 
     if (!passwordMatch) {
         throw new Error("Invalid username or password")

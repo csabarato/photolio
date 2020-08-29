@@ -1,5 +1,6 @@
 const express = require('express');
 const bodyParser = require('body-parser')
+const cors = require('cors')
 
 //run mongo config
 require('./db/mongooseConfig')
@@ -12,6 +13,7 @@ const app = express()
 
 const port = process.env.PORT
 
+app.use(cors({origin: 'http://localhost:4200'}))
 app.use(bodyParser.json())
 app.use(adminRouter)
 app.use(photoRouter)
