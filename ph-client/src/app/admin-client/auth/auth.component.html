@@ -1,0 +1,35 @@
+<div class="row mt-5" align="center">
+  <div class="col-xs-12 col-md-6 col-md-offset-3">
+
+    <form #authForm="ngForm" (ngSubmit)="onSubmit(authForm)">
+
+      <div>
+      <mat-form-field>
+        <mat-label>Email</mat-label>
+        <input matInput type="email" class="form-control"
+            ngModel
+            name="email"
+            required>
+      </mat-form-field>
+      </div>
+
+      <div>
+      <mat-form-field>
+        <mat-label>Jelszó</mat-label>
+        <input matInput type="password" class="form-control"
+               ngModel
+               name="password"
+               required>
+      </mat-form-field>
+      </div>
+
+      <div>
+        <button class="btn btn-primary" type="submit" [disabled]="!authForm.valid">Bejelentkezés</button>
+      </div>
+
+    </form>
+
+
+  </div>
+
+</div>
