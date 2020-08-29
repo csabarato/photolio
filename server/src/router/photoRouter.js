@@ -25,4 +25,38 @@ router.post('/photo/upload',adminAuth, async (req, res) => {
   }
 })
 
+router.patch('/photo/update/:id',adminAuth,async (req, res) => {
+
+    try {
+        const photo = await Photo.findById(req.params.id)
+
+        photo.title = req.body.title
+        photo.description = req.body.description
+        photo.categories = photo.categories.concat(
+            req.body.categories.map(cat => {
+                return new ObjectId(cat.categoryId)
+            }).filter(cat => {
+                   return !photo.categories.includes(cat)
+            })
+        )
+
+        await photo.save()
+        res.send(photo)
+    } catch (e) {
+        res.status(500).send({error: e.message})
+    }
+
+})
+
+router.get('/photo/list', adminAuth,async (req, res) => {
+
+    try {
+        const photos = await Photo.find({author: req.admin._id.toString()})
+        res.send(photos)
+    } catch (e) {
+        res.status(500).send({error: e.message})
+    }
+
+})
+
 module.exports = router

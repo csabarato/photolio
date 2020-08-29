@@ -15,4 +15,14 @@ router.post('/category/add', adminAuth,async (req,res) => {
 
 })
 
+router.get('/category/list', async (req, res) => {
+
+    try {
+        res.send(await Category.find({}))
+    } catch (e) {
+        res.status(500).send({error: e.message})
+    }
+
+})
+
 module.exports = router
