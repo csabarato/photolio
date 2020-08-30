@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import {FormGroup, NgForm} from "@angular/forms";
-import {environment} from "../../../environments/environment";
+import {NgForm} from "@angular/forms";
+import {AuthService} from "./auth.service";
+import {take} from "rxjs/operators";
 
 @Component({
   selector: 'app-auth',
@@ -9,12 +10,20 @@ import {environment} from "../../../environments/environment";
 })
 export class AuthComponent implements OnInit {
 
-  constructor() { }
+  error: string;
+
+  constructor(private authService: AuthService) { }
 
   ngOnInit(): void {
   }
 
   onSubmit(authForm: NgForm) {
-    console.log(environment.apiUrl)
+    this.authService.login(authForm.value.email, authForm.value.password)
+      .pipe(take(1))
+      .subscribe(userData => {
+        console.log(userData)
+      }, errorMessage => {
+        this.error = errorMessage
+      });
   }
 }
